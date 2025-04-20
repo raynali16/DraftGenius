@@ -13,8 +13,8 @@ def greedy_team(players: list,
     count_by_team = {}
 
     for p in sorted_players:
-        """A for loop which is our main function, building an 11-player squad un
-        -der budget, and keeping the 3-per-team rule."""
+        """A for loop which is our main function, returning an 11-player squad
+        under budget, and keeping the 3-per-team rule."""
         if len(squad.players) >= team_size:
             break
         if squad.total_cost() + p.cost > budget:
