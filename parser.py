@@ -8,6 +8,8 @@ def load_players(path: str = 'players.csv') -> list:
     """
     players = []
     with open(path, newline='') as f:
+        """Opens the CSV file to separate the columns into variables
+        in our program."""
         reader = csv.DictReader(f)
         for row in reader:
             players.append(Player(
