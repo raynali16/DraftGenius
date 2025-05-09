@@ -15,6 +15,7 @@ def load_players(path: str = 'players.csv') -> list:
             players.append(Player(
                 name=row['name'],
                 team=row['team'],
+                position=row['position'],
                 value=float(row['value']),
                 cost=float(row['cost'])
             ))
