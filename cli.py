@@ -37,3 +37,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    """To run the script, use the command line:
+    python cli.py --budget 100 --formation 4-3-3
+    This will load the players from 'players.csv', optimize the team based on the budget and formation,"""
