@@ -14,7 +14,7 @@ class Team:
     def __init__(self):
         self.players = []
 
-    def add_player(self, player: Player):
+  def add_player(self, player: Player):
         self.players.append(player)
 
     def total_cost(self) -> float:
