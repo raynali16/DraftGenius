@@ -1,26 +1,28 @@
 from models import Team
 
-def greedy_team(players: list,
-                budget: float,
-                team_size: int = 11,
-                max_per_team: int = 3) -> Team:
+def optimize_team(players: list, budget: float, position_needs: dict, max_per_team: int = 3) -> Team:
     """
-    Builds an 11‑player squad (default) under `budget`,
-    never picking more than 3 from any one Premier‑League team.
+    Picks a team matching exact positional needs (e.g., 4 DEF, 3 MID, 3 FWD, 1 GK),
+    respecting budget and team limit constraints.
     """
-    sorted_players = sorted(players, key=lambda p: p.value/p.cost, reverse=True)
-    squad = Team()
+    sorted_players = sorted(players, key=lambda p: p.value / p.cost, reverse=True)
+    team = Team()
+    count_by_position = {pos: 0 for pos in position_needs}
     count_by_team = {}
 
     for p in sorted_players:
-        if len(squad.players) >= team_size:
-            break
-        if squad.total_cost() + p.cost > budget:
+        if team.total_cost() + p.cost > budget:
+            continue
+        if count_by_position.get(p.position, 0) >= position_needs.get(p.position, 0):
             continue
         if count_by_team.get(p.team, 0) >= max_per_team:
             continue
 
-        squad.add_player(p)
+        team.add_player(p)
+        count_by_position[p.position] += 1
         count_by_team[p.team] = count_by_team.get(p.team, 0) + 1
 
-    return squad
+        if all(count_by_position[pos] == position_needs[pos] for pos in position_needs):
+            break
+
+    return team
