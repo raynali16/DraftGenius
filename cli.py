@@ -1,6 +1,7 @@
 import argparse
 from parser import load_players
 from optimizer import optimize_team
+from tabulate import tabulate 
 
 def parse_formation(formation: str) -> dict:
     """
@@ -29,15 +30,21 @@ def main():
 
     players = load_players()
     team = optimize_team(players, args.budget, position_needs, args.max)
-
     print("\nRecommended Squad:")
-    for p in team.players:
-        print(" -", p)
-    print(f"\nTotal Cost: {team.total_cost():.2f}, Total Value: {team.total_value():.2f}")
+    table = [
+    [p.name, p.position, p.team, f"{p.value:.2f}", f"{p.cost:.2f}"]
+    for p in team.players 
+]
+    headers = ["Name", "Position", "Team", "Value", "Cost"]
+    print(tabulate(table, headers=headers, tablefmt="pretty"))
+    print(f"\nTotal Cost: {team.total_cost():.2f}, Total Value: {team.total_value():.2f}") 
 
 if __name__ == "__main__":
     main()
 
-    """To run the script, use the command line:
+    """To run the script make sure you have tabulate installed in your terminal. 
+    To install use the command line: 
+    pip install tabulate
+    Now use the command line:
     python cli.py --budget 100 --formation 4-3-3
     This will load the players from 'players.csv', optimize the team based on the budget and formation,"""
