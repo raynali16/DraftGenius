@@ -7,7 +7,7 @@ def load_players(path: str = 'players.csv') -> list:
     CSV columns: name, team, value, cost.
     """
     players = []
-    with open(path, newline='') as f:
+    with open(path, newline='', encoding='utf-8') as f:
         """Opens the CSV file to separate the columns into variables
         in our program."""
         reader = csv.DictReader(f)
